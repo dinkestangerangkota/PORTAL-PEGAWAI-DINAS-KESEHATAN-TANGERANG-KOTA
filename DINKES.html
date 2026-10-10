@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pegawai - Dinas Kesehatan Kota Tangerang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .page-transition {
+            animation: fadeIn 0.35s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <header class="bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2.5 rounded-xl backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-hospital-user text-2xl text-emerald-200"></i>
+                </div>
+                <div>
+                    <h1 class="text-base md:text-xl font-bold tracking-tight">DINAS KESEHATAN KOTA TANGERANG</h1>
+                    <p class="text-xs text-emerald-200 font-medium">Portal Kepegawaian & Atribut Kedinasan</p>
+                </div>
+            </div>
+            
+            <div id="user-badge" class="hidden flex items-center space-x-3">
+                <div class="hidden sm:flex items-center space-x-2 bg-emerald-900/60 px-3 py-1.5 rounded-full border border-emerald-500/30 text-xs font-medium text-emerald-100">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Sistem Terverifikasi</span>
+                </div>
+                <button onclick="handleLogout()" title="Keluar Portal" class="bg-red-500/20 hover:bg-red-600 text-white p-2 rounded-xl border border-red-400/30 transition-colors duration-200 text-xs flex items-center space-x-1.5">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="hidden md:inline">Keluar</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl w-full mx-auto px-4 py-6 md:py-8 flex-grow">
+
+        <div id="page-0" class="page-transition max-w-md mx-auto bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden my-4">
+            <div class="bg-gradient-to-r from-emerald-700 to-teal-800 p-6 text-white text-center relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 opacity-10">
+                    <i class="fa-solid fa-notes-medical text-9xl"></i>
+                </div>
+                <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl mx-auto flex items-center justify-center border border-white/20 mb-3 shadow-inner">
+                    <i class="fa-solid fa-user-lock text-2xl text-emerald-200"></i>
+                </div>
+                <h2 class="text-xl font-bold">Verifikasi Pegawai</h2>
+                <p class="text-xs text-emerald-200 mt-1">Masukkan Nama dan NIK Anda untuk mengakses portal</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="p-6 md:p-8 space-y-5">
+                <div id="login-error" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-3.5 rounded-2xl flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-exclamation text-red-500 text-base shrink-0"></i>
+                    <span>Harap isi NAMA dan NIK dengan benar untuk melanjutkan.</span>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Nama Lengkap</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <input type="text" id="input-nama" placeholder="Contoh: Ahmad Subagja" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all">
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Nomor Induk Kependudukan (NIK)</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <input type="text" id="input-nik" placeholder="Contoh: 3671012345670001" required pattern="[0-9]*" maxlength="16" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md transition-all duration-200 flex items-center justify-center space-x-2 text-sm mt-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Masuk Portal / Verification</span>
+                </button>
+
+                <p class="text-center text-[11px] text-slate-400 mt-4">
+                    Sistem Otentikasi Terintegrasi Dinkes Kota Tangerang
+                </p>
+            </form>
+        </div>
+
+        <div id="main-dashboard" class="hidden space-y-6">
+            
+            <!-- Navigation Tabs Bar -->
+            <div class="bg-white/80 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-emerald-100 flex flex-wrap gap-1 md:gap-2 justify-between">
+                <button onclick="switchPage(1)" id="tab-btn-1" class="flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 bg-emerald-700 text-white shadow-md">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>Identitas</span>
+                </button>
+                <button onclick="switchPage(2)" id="tab-btn-2" class="flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 hover:bg-emerald-50">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Kelengkapan</span>
+                </button>
+                <button onclick="switchPage(3)" id="tab-btn-3" class="flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 hover:bg-emerald-50">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Kerahasiaan</span>
+                </button>
+            </div>
+
+            <div id="page-1" class="page-transition bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 p-6 text-white relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 opacity-10">
+                        <i class="fa-solid fa-user-shield text-9xl"></i>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 text-white text-2xl md:text-3xl font-bold shadow-inner">
+                                DF
+                            </div>
+                            <div>
+                                <span class="bg-emerald-900/60 text-emerald-200 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-500/30">Pegawai Resmi</span>
+                                <h2 class="text-xl md:text-2xl font-bold mt-1">DIAN FATIMAH HARTOYO</h2>
+                                <p class="text-xs md:text-sm text-emerald-100 font-medium">APOTEKER AHLI PERTAMA</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Digital Badge QR Code Component -->
+                        <div class="bg-white p-2 rounded-2xl shadow-lg border border-white/40 flex flex-col items-center shrink-0">
+                            <div class="w-16 h-16 bg-slate-900 rounded-lg p-1 flex items-center justify-center">
+                                <i class="fa-solid fa-qrcode text-white text-4xl"></i>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-600 mt-1 uppercase tracking-tighter">ID: DKN-8703</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-50/60 border border-emerald-100 p-4 rounded-2xl">
+                            <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wider block mb-1">Nomor Induk Pegawai (NIP)</span>
+                            <div class="flex items-center justify-between">
+                                <span class="text-base md:text-lg font-bold text-slate-800">198703272018052019</span>
+                                <i class="fa-solid fa-fingerprint text-emerald-600/60 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50/60 border border-emerald-100 p-4 rounded-2xl">
+                            <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wider block mb-1">Golongan / Ruang</span>
+                            <div class="flex items-center justify-between">
+                                <span class="text-base md:text-lg font-bold text-slate-800">IX (9) Sembilan</span>
+                                <i class="fa-solid fa-layer-group text-emerald-600/60 text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Unit Penempatan Tugas (UPT)</span>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base md:text-lg font-bold text-slate-800">Dinas kesehatan kota Tangerang</span>
+                            <i class="fa-solid fa-building-columns text-teal-600 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 1 Navigation Footer -->
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end">
+                    <button onclick="switchPage(2)" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <span>Selanjutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="page-2" class="page-transition hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-teal-700 to-emerald-700 p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="bg-teal-800/60 text-teal-200 text-xs px-2.5 py-1 rounded-full font-medium border border-teal-500/30">Monitoring Atribut</span>
+                            <h2 class="text-xl md:text-2xl font-bold mt-1">Status & Kelengkapan</h2>
+                            <p class="text-xs md:text-sm text-teal-100">Daftar status keaktifan dan atribut kedinasan</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-2xl border border-white/20">
+                            <i class="fa-solid fa-clipboard-list text-2xl text-teal-200"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6">
+                    <!-- Status & Mulai Bekerja Card -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-50/80 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wider block mb-1">Status Kepegawaian</span>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-sm">
+                                    <span class="w-2 h-2 rounded-full bg-white mr-1.5 animate-pulse"></span>
+                                    AKTIF
+                                </span>
+                            </div>
+                            <i class="fa-solid fa-user-check text-emerald-600 text-2xl"></i>
+                        </div>
+                        <div class="bg-teal-50/80 border border-teal-200 p-4 rounded-2xl flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-semibold text-teal-700 uppercase tracking-wider block mb-1">Mulai Bekerja Pada</span>
+                                <span class="text-sm md:text-base font-bold text-slate-800">13 Oktober 2026</span>
+                            </div>
+                            <i class="fa-solid fa-calendar-days text-teal-600 text-2xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Kelengkapan Atribut Checklist -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">Status Kelengkapan Atribut</h3>
+                        
+                        <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between hover:bg-slate-100/60 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-shirt"></i>
+                                </div>
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">BAJU DINAS (PDH)</span>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 border border-amber-200/60 px-3 py-1 rounded-full text-xs font-semibold">
+                                Belum tersedia
+                            </span>
+                        </div>
+
+                        <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between hover:bg-slate-100/60 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-vest"></i>
+                                </div>
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">BAJU BATIK KORPRI</span>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 border border-amber-200/60 px-3 py-1 rounded-full text-xs font-semibold">
+                                Belum tersedia
+                            </span>
+                        </div>
+
+                        <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between hover:bg-slate-100/60 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-id-badge"></i>
+                                </div>
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">NAMETAG</span>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 border border-amber-200/60 px-3 py-1 rounded-full text-xs font-semibold">
+                                Belum tersedia
+                            </span>
+                        </div>
+
+                        <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between hover:bg-slate-100/60 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-shoe-prints"></i>
+                                </div>
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">SEPATU (PDH)</span>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 border border-amber-200/60 px-3 py-1 rounded-full text-xs font-semibold">
+                                Belum tersedia
+                            </span>
+                        </div>
+
+                        <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between hover:bg-slate-100/60 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-user-nurse"></i>
+                                </div>
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">SNELLI</span>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 border border-amber-200/60 px-3 py-1 rounded-full text-xs font-semibold">
+                                Belum tersedia
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Informational Note Banners -->
+                    <div class="space-y-3 pt-2">
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-2xl flex items-start space-x-3">
+                            <i class="fa-solid fa-circle-info text-emerald-600 mt-0.5"></i>
+                            <div>
+                                <span class="text-xs font-bold text-emerald-900 block">Jadwal Ketersediaan</span>
+                                <p class="text-xs md:text-sm text-emerald-800 font-medium">Kelengkapan tersedia pada 12/10/2026</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-2xl flex items-start space-x-3">
+                            <i class="fa-solid fa-hand-point-right text-amber-600 mt-0.5"></i>
+                            <div>
+                                <span class="text-xs font-bold text-amber-900 block">Instruksi Pengambilan</span>
+                                <p class="text-xs md:text-sm text-amber-800 font-medium">Harap tunjukan halaman ini kepada petugas pada saat pengambilan</p>
+                            </div>
+                        </div>
+
+                        <!-- Special Chaperone Requirement Note -->
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-2xl flex items-start space-x-3 shadow-sm">
+                            <i class="fa-solid fa-user-gear text-blue-600 mt-0.5 text-base"></i>
+                            <div>
+                                <span class="text-xs font-bold text-blue-950 block uppercase tracking-wider">Persyaratan Khusus Pengambilan</span>
+                                <p class="text-xs md:text-sm text-blue-900 font-bold mt-0.5">
+                                    Wajib membawa pendamping khusus yang telah ditunjuk <span class="underline decoration-blue-400 decoration-2 font-black text-blue-950">"DICKY DHARMAWAN ISKANDAR"</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 2 Navigation Footer -->
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-between">
+                    <button onclick="switchPage(1)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+                    <button onclick="switchPage(3)" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <span>Selanjutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="page-3" class="page-transition hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-800 to-teal-900 p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="bg-emerald-900/60 text-emerald-200 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-500/30">Keamanan Data</span>
+                            <h2 class="text-xl md:text-2xl font-bold mt-1">Informasi Kerahasiaan</h2>
+                            <p class="text-xs md:text-sm text-emerald-200">Kebijakan akses dan privasi data kepegawaian</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-2xl border border-white/20">
+                            <i class="fa-solid fa-lock text-2xl text-emerald-200"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6">
+                    <!-- Warning Box -->
+                    <div class="bg-red-50 border-2 border-red-200 p-6 rounded-3xl shadow-sm relative overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 text-red-100 pointer-events-none">
+                            <i class="fa-solid fa-shield-cat text-8xl"></i>
+                        </div>
+                        <div class="flex items-start space-x-4 relative z-10">
+                            <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 border border-red-200 text-xl shadow-sm">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-red-700 uppercase tracking-wider">Peringatan Keamanan Dokumen</span>
+                                <p class="text-sm md:text-base text-red-900 font-semibold leading-relaxed">
+                                    Data di dalam ini bersifat rahasia, hanya pegawai DINAS KESEHATAN KOTA TANGERANG yang diizinkan melihat, dan harap jangan menunjukan data ini kepada kemenkes atau BPOM sampai pada waktu yang di tentukan
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Security Guidance -->
+                    <div class="bg-emerald-50/60 border border-emerald-100 p-5 rounded-2xl space-y-3">
+                        <div class="flex items-center space-x-2 text-emerald-800 font-semibold text-sm">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Ketentuan Privasi Instansi</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                            Seluruh informasi yang tertera dalam portal ini dilindungi oleh peraturan internal Dinas Kesehatan Kota Tangerang. Pelanggaran terhadap penyebaran informasi tanpa izin dapat dikenakan sanksi disiplin kepegawaian yang berlaku.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Page 3 Navigation Footer -->
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-start">
+                    <button onclick="switchPage(2)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="bg-white/80 backdrop-blur-md border-t border-emerald-100 py-4 mt-8 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p>&copy; 2026 Dinas Kesehatan Kota Tangerang. Seluruh hak cipta dilindungi.</p>
+            <div class="flex items-center space-x-2 text-emerald-700 font-medium">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>Kota Tangerang Ayo Sadar Sehat</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const nama = document.getElementById('input-nama').value.trim();
+            const nik = document.getElementById('input-nik').value.trim();
+            const errBox = document.getElementById('login-error');
+
+            if (nama !== '' && nik !== '') {
+                errBox.classList.add('hidden');
+                document.getElementById('page-0').classList.add('hidden');
+                document.getElementById('main-dashboard').classList.remove('hidden');
+                document.getElementById('user-badge').classList.remove('hidden');
+                switchPage(1);
+            } else {
+                errBox.classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            document.getElementById('main-dashboard').classList.add('hidden');
+            document.getElementById('user-badge').classList.add('hidden');
+            document.getElementById('page-0').classList.remove('hidden');
+            document.getElementById('input-nama').value = '';
+            document.getElementById('input-nik').value = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchPage(pageNum) {
+            for (let i = 1; i <= 3; i++) {
+                const page = document.getElementById('page-' + i);
+                const btn = document.getElementById('tab-btn-' + i);
+                if (page) page.classList.add('hidden');
+                if (btn) btn.className = "flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 hover:bg-emerald-50";
+            }
+
+            const targetPage = document.getElementById('page-' + pageNum);
+            const targetBtn = document.getElementById('tab-btn-' + pageNum);
+            
+            if (targetPage) targetPage.classList.remove('hidden');
+            if (targetBtn) targetBtn.className = "flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 bg-emerald-700 text-white shadow-md";
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
