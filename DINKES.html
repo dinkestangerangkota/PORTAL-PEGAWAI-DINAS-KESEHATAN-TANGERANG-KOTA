@@ -18,6 +18,13 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes slowPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.95); }
+        }
+        .animate-slow-pulse {
+            animation: slowPulse 2s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 min-h-screen text-slate-800 flex flex-col justify-between">
@@ -101,21 +108,30 @@
         <div id="main-dashboard" class="hidden space-y-6">
             
             <!-- Navigation Tabs Bar -->
-            <div class="bg-white/80 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-emerald-100 flex flex-wrap gap-1 md:gap-2 justify-between">
-                <button onclick="switchPage(1)" id="tab-btn-1" class="flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 bg-emerald-700 text-white shadow-md">
+            <div class="bg-white/80 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-emerald-100 flex flex-wrap gap-1 justify-between">
+                <button onclick="switchPage(1)" id="tab-btn-1" class="flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 bg-emerald-700 text-white shadow-md">
                     <i class="fa-solid fa-id-card"></i>
                     <span>Identitas</span>
                 </button>
-                <button onclick="switchPage(2)" id="tab-btn-2" class="flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 hover:bg-emerald-50">
+                <button onclick="switchPage(2)" id="tab-btn-2" class="flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 text-slate-600 hover:bg-emerald-50">
                     <i class="fa-solid fa-clipboard-check"></i>
-                    <span>Kelengkapan</span>
+                    <span>Atribut</span>
                 </button>
-                <button onclick="switchPage(3)" id="tab-btn-3" class="flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 hover:bg-emerald-50">
+                <button onclick="switchPage(3)" id="tab-btn-3" class="flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 text-slate-600 hover:bg-emerald-50">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Tugas</span>
+                </button>
+                <button onclick="switchPage(4)" id="tab-btn-4" class="flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 text-slate-600 hover:bg-emerald-50">
+                    <i class="fa-solid fa-file-shield"></i>
+                    <span>Syarat</span>
+                </button>
+                <button onclick="switchPage(5)" id="tab-btn-5" class="flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 text-slate-600 hover:bg-emerald-50">
                     <i class="fa-solid fa-shield-halved"></i>
-                    <span>Kerahasiaan</span>
+                    <span>Privasi</span>
                 </button>
             </div>
 
+            <!-- Page 1: Identitas -->
             <div id="page-1" class="page-transition bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
                 <div class="bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 p-6 text-white relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 opacity-10">
@@ -133,7 +149,6 @@
                             </div>
                         </div>
                         
-                        <!-- Digital Badge QR Code Component -->
                         <div class="bg-white p-2 rounded-2xl shadow-lg border border-white/40 flex flex-col items-center shrink-0">
                             <div class="w-16 h-16 bg-slate-900 rounded-lg p-1 flex items-center justify-center">
                                 <i class="fa-solid fa-qrcode text-white text-4xl"></i>
@@ -170,7 +185,6 @@
                     </div>
                 </div>
 
-                <!-- Page 1 Navigation Footer -->
                 <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end">
                     <button onclick="switchPage(2)" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 flex items-center space-x-2 text-sm">
                         <span>Selanjutnya</span>
@@ -179,6 +193,7 @@
                 </div>
             </div>
 
+            <!-- Page 2: Kelengkapan / Atribut -->
             <div id="page-2" class="page-transition hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
                 <div class="bg-gradient-to-r from-teal-700 to-emerald-700 p-6 text-white">
                     <div class="flex items-center justify-between">
@@ -194,7 +209,6 @@
                 </div>
 
                 <div class="p-6 md:p-8 space-y-6">
-                    <!-- Status & Mulai Bekerja Card -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-emerald-50/80 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between">
                             <div>
@@ -206,10 +220,11 @@
                             </div>
                             <i class="fa-solid fa-user-check text-emerald-600 text-2xl"></i>
                         </div>
+
                         <div class="bg-amber-50/80 border border-amber-300 p-4 rounded-2xl flex items-center justify-between">
                             <div>
                                 <div class="flex items-center space-x-1.5 mb-1">
-                                    <i class="fa-solid fa-triangle-exclamation text-amber-600 text-xs"></i>
+                                    <i class="fa-solid fa-calendar-days text-amber-600 text-xs"></i>
                                     <span class="text-xs font-bold text-amber-800 uppercase tracking-wider block">Mulai Wajib Bekerja Pada</span>
                                 </div>
                                 <span class="text-sm md:text-base font-bold text-slate-800 flex items-center space-x-2">
@@ -217,12 +232,11 @@
                                 </span>
                             </div>
                             <div class="bg-amber-100 p-2.5 rounded-xl border border-amber-200 text-amber-700">
-                                <i class="fa-solid fa-person-digging text-2xl"></i>
+                                <i class="fa-solid fa-calendar-days text-2xl"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Kelengkapan Atribut Checklist -->
                     <div class="space-y-3">
                         <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">Status Kelengkapan Atribut</h3>
                         
@@ -292,13 +306,17 @@
                         </div>
                     </div>
 
-                    <!-- Informational Note Banners -->
                     <div class="space-y-3 pt-2">
-                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-2xl flex items-start space-x-3">
-                            <i class="fa-solid fa-circle-info text-emerald-600 mt-0.5"></i>
+                        <!-- Pemberitahuan Penting dengan Segitiga Merah & Berkelap-kelip Pelan -->
+                        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-2xl flex items-start space-x-3 shadow-sm">
+                            <div class="animate-slow-pulse text-red-600 mt-0.5 shrink-0 flex items-center justify-center">
+                                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                            </div>
                             <div>
-                                <span class="text-xs font-bold text-emerald-900 block">Jadwal Ketersediaan</span>
-                                <p class="text-xs md:text-sm text-emerald-800 font-medium">Kelengkapan tersedia pada 12/10/2026</p>
+                                <span class="text-xs font-bold text-red-950 block uppercase tracking-wider">Pemberitahuan Penting</span>
+                                <p class="text-xs md:text-sm text-red-900 font-bold mt-0.5 leading-relaxed">
+                                    Harap segera hubungi pegawai instansi terkait untuk informasi lebih lanjut
+                                </p>
                             </div>
                         </div>
 
@@ -310,7 +328,6 @@
                             </div>
                         </div>
 
-                        <!-- Special Chaperone Requirement Note -->
                         <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-2xl flex items-start space-x-3 shadow-sm">
                             <i class="fa-solid fa-user-gear text-blue-600 mt-0.5 text-base"></i>
                             <div>
@@ -321,7 +338,6 @@
                             </div>
                         </div>
 
-                        <!-- New Internal Delay Notice Banner -->
                         <div class="bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-2xl flex items-start space-x-3 shadow-sm">
                             <i class="fa-solid fa-circle-exclamation text-rose-600 mt-0.5 text-base shrink-0"></i>
                             <div>
@@ -334,7 +350,6 @@
                     </div>
                 </div>
 
-                <!-- Page 2 Navigation Footer -->
                 <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-between">
                     <button onclick="switchPage(1)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -347,7 +362,190 @@
                 </div>
             </div>
 
+            <!-- Page 3: Tugas Utama -->
             <div id="page-3" class="page-transition hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-teal-800 via-emerald-800 to-teal-900 p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="bg-teal-900/60 text-teal-200 text-xs px-2.5 py-1 rounded-full font-medium border border-teal-500/30">Program Kerja</span>
+                            <h2 class="text-xl md:text-2xl font-bold mt-1">Tugas Utama</h2>
+                            <p class="text-xs md:text-sm text-teal-200">Daftar tugas utama pegawai yang akan segera aktif</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-2xl border border-white/20">
+                            <i class="fa-solid fa-list-check text-2xl text-teal-200"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-5">
+                    <div class="bg-teal-50 border border-teal-200/80 rounded-2xl p-4 flex items-center space-x-3 text-teal-900 text-xs md:text-sm font-medium">
+                        <i class="fa-solid fa-circle-info text-teal-600 text-base shrink-0"></i>
+                        <span>Berikut adalah daftar Tugas Utama yang akan segera aktif dalam periode kerja ke depan:</span>
+                    </div>
+
+                    <!-- Tugas 1 -->
+                    <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-5 hover:border-emerald-300 transition-all duration-200 shadow-sm">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg shrink-0 mt-0.5">
+                                <i class="fa-solid fa-pump-medical"></i>
+                            </div>
+                            <div class="space-y-1.5 flex-grow">
+                                <div class="flex items-center justify-between flex-wrap gap-2">
+                                    <h3 class="text-base font-bold text-slate-800">Sterilisasi Sentral</h3>
+                                    <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-200">Segera Aktif</span>
+                                </div>
+                                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                                    Mengawasi atau melakukan kegiatan sterilisasi sentral.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tugas 2 -->
+                    <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-5 hover:border-teal-300 transition-all duration-200 shadow-sm">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-lg shrink-0 mt-0.5">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div class="space-y-1.5 flex-grow">
+                                <div class="flex items-center justify-between flex-wrap gap-2">
+                                    <h3 class="text-base font-bold text-slate-800">Farmakoekonomi</h3>
+                                    <span class="bg-teal-100 text-teal-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-teal-200">Segera Aktif</span>
+                                </div>
+                                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                                    Menerapkan kajian farmakoekonomi dan mendukung evaluasi penggunaan obat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tugas 3 -->
+                    <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-5 hover:border-cyan-300 transition-all duration-200 shadow-sm">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-lg shrink-0 mt-0.5">
+                                <i class="fa-solid fa-flask-vial"></i>
+                            </div>
+                            <div class="space-y-1.5 flex-grow">
+                                <div class="flex items-center justify-between flex-wrap gap-2">
+                                    <h3 class="text-base font-bold text-slate-800">Uji Klinik</h3>
+                                    <span class="bg-cyan-100 text-cyan-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-cyan-200">Segera Aktif</span>
+                                </div>
+                                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                                    Terlibat dalam penyiapan atau penerapan data uji klinik bila ada program kerja terkait di instansi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-between">
+                    <button onclick="switchPage(2)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+                    <button onclick="switchPage(4)" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <span>Selanjutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 4: Persyaratan Dokumen -->
+            <div id="page-4" class="page-transition hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-700 via-teal-800 to-emerald-900 p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="bg-emerald-900/60 text-emerald-200 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-500/30">Administrasi Kepegawaian</span>
+                            <h2 class="text-xl md:text-2xl font-bold mt-1">Status Persyaratan</h2>
+                            <p class="text-xs md:text-sm text-emerald-200">Daftar kelengkapan dokumen yang sudah dan belum dipenuhi</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-2xl border border-white/20">
+                            <i class="fa-solid fa-file-shield text-2xl text-emerald-200"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 space-y-6">
+                    <!-- Sudah Dipenuhi -->
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2 text-emerald-800 font-bold text-xs uppercase tracking-wider px-1">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>
+                            <span>Persyaratan yang Sudah Dipenuhi</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="bg-emerald-50/70 border border-emerald-200/80 p-3.5 rounded-2xl flex items-center justify-between">
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">eKTP</span>
+                                <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full text-xs font-bold border border-emerald-200 flex items-center space-x-1">
+                                    <i class="fa-solid fa-check text-[10px]"></i>
+                                    <span>Lengkap</span>
+                                </span>
+                            </div>
+                            <div class="bg-emerald-50/70 border border-emerald-200/80 p-3.5 rounded-2xl flex items-center justify-between">
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">Surat pernyataan 5 poin</span>
+                                <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full text-xs font-bold border border-emerald-200 flex items-center space-x-1">
+                                    <i class="fa-solid fa-check text-[10px]"></i>
+                                    <span>Lengkap</span>
+                                </span>
+                            </div>
+                            <div class="bg-emerald-50/70 border border-emerald-200/80 p-3.5 rounded-2xl flex items-center justify-between">
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">Surat pengalaman kerja (min 2th)</span>
+                                <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full text-xs font-bold border border-emerald-200 flex items-center space-x-1">
+                                    <i class="fa-solid fa-check text-[10px]"></i>
+                                    <span>Lengkap</span>
+                                </span>
+                            </div>
+                            <div class="bg-emerald-50/70 border border-emerald-200/80 p-3.5 rounded-2xl flex items-center justify-between">
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">Surat lamaran</span>
+                                <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full text-xs font-bold border border-emerald-200 flex items-center space-x-1">
+                                    <i class="fa-solid fa-check text-[10px]"></i>
+                                    <span>Lengkap</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Belum Dipenuhi -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center justify-between px-1">
+                            <div class="flex items-center space-x-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600 text-base"></i>
+                                <span>Persyaratan yang Belum Dipenuhi</span>
+                            </div>
+                            <span class="bg-amber-100 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-xl border border-amber-300">
+                                Batas Akhir: 25 November 2026
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="bg-amber-50/70 border border-amber-200 p-3.5 rounded-2xl flex items-center justify-between">
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">Ijazah</span>
+                                <span class="bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full text-xs font-bold border border-amber-300">
+                                    Menunggu Pengumpulan
+                                </span>
+                            </div>
+                            <div class="bg-amber-50/70 border border-amber-200 p-3.5 rounded-2xl flex items-center justify-between">
+                                <span class="text-xs md:text-sm font-semibold text-slate-700">STR (Surat Tanda Registrasi)</span>
+                                <span class="bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full text-xs font-bold border border-amber-300">
+                                    Menunggu Pengumpulan
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-between">
+                    <button onclick="switchPage(3)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+                    <button onclick="switchPage(5)" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all duration-200 flex items-center space-x-2 text-sm">
+                        <span>Selanjutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 5: Kerahasiaan -->
+            <div id="page-5" class="page-transition hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
                 <div class="bg-gradient-to-r from-emerald-800 to-teal-900 p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
@@ -362,7 +560,6 @@
                 </div>
 
                 <div class="p-6 md:p-8 space-y-6">
-                    <!-- Warning Box -->
                     <div class="bg-red-50 border-2 border-red-200 p-6 rounded-3xl shadow-sm relative overflow-hidden">
                         <div class="absolute -right-6 -bottom-6 text-red-100 pointer-events-none">
                             <i class="fa-solid fa-shield-cat text-8xl"></i>
@@ -380,7 +577,6 @@
                         </div>
                     </div>
 
-                    <!-- Additional Security Guidance -->
                     <div class="bg-emerald-50/60 border border-emerald-100 p-5 rounded-2xl space-y-3">
                         <div class="flex items-center space-x-2 text-emerald-800 font-semibold text-sm">
                             <i class="fa-solid fa-circle-check"></i>
@@ -392,9 +588,8 @@
                     </div>
                 </div>
 
-                <!-- Page 3 Navigation Footer -->
                 <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-start">
-                    <button onclick="switchPage(2)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
+                    <button onclick="switchPage(4)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all duration-200 flex items-center space-x-2 text-sm">
                         <i class="fa-solid fa-arrow-left"></i>
                         <span>Sebelumnya</span>
                     </button>
@@ -443,18 +638,18 @@
         }
 
         function switchPage(pageNum) {
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const page = document.getElementById('page-' + i);
                 const btn = document.getElementById('tab-btn-' + i);
                 if (page) page.classList.add('hidden');
-                if (btn) btn.className = "flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 hover:bg-emerald-50";
+                if (btn) btn.className = "flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 text-slate-600 hover:bg-emerald-50";
             }
 
             const targetPage = document.getElementById('page-' + pageNum);
             const targetBtn = document.getElementById('tab-btn-' + pageNum);
             
             if (targetPage) targetPage.classList.remove('hidden');
-            if (targetBtn) targetBtn.className = "flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 bg-emerald-700 text-white shadow-md";
+            if (targetBtn) targetBtn.className = "flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 bg-emerald-700 text-white shadow-md";
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
