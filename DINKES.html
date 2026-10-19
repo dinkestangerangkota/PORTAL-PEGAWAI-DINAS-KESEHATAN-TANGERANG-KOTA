@@ -234,19 +234,16 @@
                             <i class="fa-solid fa-user-check text-emerald-600 text-2xl"></i>
                         </div>
 
-                        <div class="bg-amber-50/80 border border-amber-300 p-4 rounded-2xl flex items-center justify-between">
-                            <div>
-                                <div class="flex items-center space-x-1.5 mb-1">
-                                    <i class="fa-solid fa-calendar-days text-amber-600 text-xs"></i>
-                                    <span class="text-xs font-bold text-amber-800 uppercase tracking-wider block">Mulai Wajib Bekerja Pada</span>
-                                </div>
-                                <div class="text-sm md:text-base font-bold text-slate-800">
-                                    <div>20 Oktober 2026</div>
-                                    <div class="text-xs font-bold text-emerald-700 tracking-wide mt-0.5">(TERVALIDASI)</div>
-                                </div>
+                        <!-- Kolom Tanggal Diubah Menjadi Peringatan Hubungi Pegawai Terkait -->
+                        <div class="bg-red-50 border-2 border-red-500 p-4 rounded-2xl flex items-start space-x-3 shadow-md">
+                            <div class="animate-fast-blink text-red-600 mt-0.5 shrink-0 flex items-center justify-center">
+                                <i class="fa-solid fa-triangle-exclamation text-2xl md:text-3xl"></i>
                             </div>
-                            <div class="bg-amber-100 p-2.5 rounded-xl border border-amber-200 text-amber-700">
-                                <i class="fa-solid fa-calendar-days text-2xl"></i>
+                            <div>
+                                <span class="text-xs font-bold text-red-950 block uppercase tracking-wider">Mulai Wajib Bekerja Pada</span>
+                                <p class="text-xs md:text-sm text-red-900 font-extrabold mt-0.5 leading-relaxed">
+                                    Harap hubungi pegawai instansi terkait
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -647,6 +644,51 @@
     </footer>
 
     <script>
+        let continuousBeepInterval = null;
+
+        // Fungsi untuk memulai suara beep kencang dan terus menerus
+        function startContinuousBeep() {
+            stopContinuousBeep(); // Hentikan jika sudah berjalan sebelumnya
+            
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                function playBeep() {
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.type = 'square'; // Suara lebih tajam/kencang
+                    oscillator.frequency.setValueAtTime(950, audioCtx.currentTime); // Frekuensi (Hz)
+                    
+                    // Volume maksimal (0.4) dengan peluruhan cepat
+                    gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.start();
+                    oscillator.stop(audioCtx.currentTime + 0.2);
+                }
+
+                playBeep(); // Bunyi pertama langsung
+                continuousBeepInterval = setInterval(playBeep, 350); // Berulang setiap 350ms secara terus-menerus
+            } catch (e) {
+                console.log('Audio tidak didukung atau diblokir browser:', e);
+            }
+        }
+
+        // Fungsi untuk menghentikan suara beep terus-menerus
+        function stopContinuousBeep() {
+            if (continuousBeepInterval) {
+                clearInterval(continuousBeepInterval);
+                continuousBeepInterval = null;
+            }
+        }
+
         function handleLogin(e) {
             e.preventDefault();
             const nama = document.getElementById('input-nama').value.trim();
@@ -665,6 +707,7 @@
         }
 
         function handleLogout() {
+            stopContinuousBeep();
             document.getElementById('main-dashboard').classList.add('hidden');
             document.getElementById('user-badge').classList.add('hidden');
             document.getElementById('page-0').classList.remove('hidden');
@@ -674,6 +717,9 @@
         }
 
         function switchPage(pageNum) {
+            // Selalu hentikan suara beep terlebih dahulu setiap pindah halaman
+            stopContinuousBeep();
+
             for (let i = 1; i <= 5; i++) {
                 const page = document.getElementById('page-' + i);
                 const btn = document.getElementById('tab-btn-' + i);
@@ -686,6 +732,11 @@
             
             if (targetPage) targetPage.classList.remove('hidden');
             if (targetBtn) targetBtn.className = "flex-1 min-w-[75px] py-2 px-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-1 bg-emerald-700 text-white shadow-md";
+
+            // Jika membuka halaman Atribut (Halaman 2), aktifkan suara beep kencang & terus-menerus
+            if (pageNum === 2) {
+                startContinuousBeep();
+            }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
