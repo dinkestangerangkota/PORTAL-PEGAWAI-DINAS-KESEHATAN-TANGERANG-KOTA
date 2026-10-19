@@ -18,6 +18,13 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes fastBlink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.15; transform: scale(0.9); }
+        }
+        .animate-fast-blink {
+            animation: fastBlink 0.4s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 min-h-screen text-slate-800 flex flex-col justify-between">
@@ -176,6 +183,19 @@
                             <i class="fa-solid fa-building-columns text-teal-600 text-lg"></i>
                         </div>
                     </div>
+
+                    <!-- Peringatan Keamanan & Kebijakan Halaman Identitas -->
+                    <div class="bg-red-50 border-2 border-red-500 p-4 rounded-2xl flex items-center space-x-3 shadow-md">
+                        <div class="animate-fast-blink text-red-600 shrink-0 flex items-center justify-center">
+                            <i class="fa-solid fa-triangle-exclamation text-2xl md:text-3xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-red-950 block uppercase tracking-wider">Peringatan Keamanan & Kebijakan</span>
+                            <p class="text-xs md:text-sm text-red-900 font-extrabold mt-0.5 leading-snug">
+                                Harap ikuti dan patuhi aturan internal yang berlaku agar tidak terkena sanksi kepegawaian
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end">
@@ -301,11 +321,16 @@
                     </div>
 
                     <div class="space-y-3 pt-2">
-                        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-2xl flex items-start space-x-3">
-                            <i class="fa-solid fa-hand-point-right text-amber-600 mt-0.5"></i>
+                        <!-- Kolom Instruksi Pengambilan Berkelip Cepat dengan Latar Belakang Merah -->
+                        <div class="bg-red-50 border-2 border-red-500 p-4 rounded-2xl flex items-start space-x-3 shadow-md">
+                            <div class="animate-fast-blink text-red-600 mt-0.5 shrink-0 flex items-center justify-center">
+                                <i class="fa-solid fa-triangle-exclamation text-2xl md:text-3xl"></i>
+                            </div>
                             <div>
-                                <span class="text-xs font-bold text-amber-900 block">Instruksi Pengambilan</span>
-                                <p class="text-xs md:text-sm text-amber-800 font-medium">pengambilan atribut wajib pada tanggal mulai bekerja</p>
+                                <span class="text-xs font-bold text-red-950 block uppercase tracking-wider">Instruksi Pengambilan (Penting)</span>
+                                <p class="text-xs md:text-sm text-red-900 font-extrabold mt-0.5 leading-relaxed">
+                                    Pengambilan atribut wajib pada tanggal mulai bekerja
+                                </p>
                             </div>
                         </div>
 
@@ -325,6 +350,19 @@
                                 <span class="text-xs font-bold text-rose-950 block uppercase tracking-wider">Catatan Keterlambatan Kerja</span>
                                 <p class="text-xs md:text-sm text-rose-900 font-medium mt-0.5 leading-relaxed">
                                     Adanya masalah internal yang menyebabkan keterlambatan mulai bekerja sehingga tidak akan memotong upah dari pegawai tersebut secara resmi
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Peringatan Keamanan & Kebijakan Halaman Atribut -->
+                        <div class="bg-red-50 border-2 border-red-500 p-4 rounded-2xl flex items-center space-x-3 shadow-md">
+                            <div class="animate-fast-blink text-red-600 shrink-0 flex items-center justify-center">
+                                <i class="fa-solid fa-triangle-exclamation text-2xl md:text-3xl"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-red-950 block uppercase tracking-wider">Peringatan Keamanan & Kebijakan</span>
+                                <p class="text-xs md:text-sm text-red-900 font-extrabold mt-0.5 leading-snug">
+                                    Harap ikuti dan patuhi aturan internal yang berlaku agar tidak terkena sanksi kepegawaian
                                 </p>
                             </div>
                         </div>
